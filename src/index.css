@@ -1,0 +1,23 @@
+body {
+    --color-background: #ffffff;
+    --color-text: #333333;
+    --color-border: #cccccc;
+}
+
+
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+
+}
+
+body {
+    background-color: white; 
+    color: black;
+}
+
+body.dark-mode {
+    --color-background: #1e1e1e;
+    --color-text: #f0f0f0;
+    --color-border: #555555;
+}

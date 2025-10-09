@@ -1,0 +1,29 @@
+a {
+    text-align: right;
+    width: 10px;
+}
+
+.color{
+    text-align: center;
+}
+
+ul {
+    justify-self: center;
+    width: 300px;
+}
+label{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.inputcolor{
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+}
+.bi{
+    margin-bottom: 7px;
+    margin-left: 10px;
+}
+#firstCheckbox{
+    color: var(--color-text);
+}
