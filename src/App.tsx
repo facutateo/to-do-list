@@ -4,12 +4,13 @@ import './index.css'
 
 
 function App() {
-    const [isdark, setIsDark] = useState<boolean>(false);
+    const [isdark, setIsDark] = useState<boolean>(localStorage.getItem('isdark') ? JSON.parse(localStorage.getItem('isdark') as string) : false);
     useEffect(() => {if (isdark) {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
         }
+        localStorage.setItem('isdark', JSON.stringify(isdark));
     }, [isdark]);
     const toggleDarkMode = () => {
         setIsDark(!isdark);

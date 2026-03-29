@@ -22,6 +22,11 @@ function Input(props:isdarkprops) {
 
 const agregar = () => {
     if(text.trim() === "") return;
+    if(items.some((item) => item.text === text)){
+        alert("ya existe ese item"); 
+        return;
+    }
+
     num ++;
     const newid = num;
 const newItem: Itemdata = {
