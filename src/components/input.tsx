@@ -5,6 +5,8 @@ import './input.css'
 interface Itemdata {
     text: string;
     id: number;
+    state: boolean;
+    color: string;
 }
 let num = 0;
 interface isdarkprops {
@@ -12,8 +14,23 @@ interface isdarkprops {
 }
 function Input(props:isdarkprops) {
     const { isdork } = props;
-    const [items, setItems] = useState<Itemdata[]>([]);
+    const [items, setItems] = useState<Itemdata[]>(() => {
+    const stored = localStorage.getItem('items');
+    return stored ? JSON.parse(stored) : [];
+});
     const [text, setText] = useState<string>("");
+
+    const updateItem = (id: number, updatedFields: Partial<Itemdata>) => {
+    const updatedItems = items.map((item) =>
+        item.id === id ? { ...item, ...updatedFields } : item
+    );
+    
+    // Actualizamos el estado del padre
+    setItems(updatedItems);
+    
+    // GUARDAMOS la lista completa y actualizada en el almacenamiento
+    localStorage.setItem('items', JSON.stringify(updatedItems));
+};
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setText(e.target.value);
@@ -32,8 +49,11 @@ const agregar = () => {
 const newItem: Itemdata = {
     text: text,
     id: newid,
+    state: false,
+    color: "none"
 }
 setItems((prevItems) => [...prevItems, newItem]);
+localStorage.setItem('items', JSON.stringify([...items, newItem]));
 setText('');
 }
 const deleteItem = (idtodelete: number) => {
@@ -53,7 +73,7 @@ return<> <div className="main">
     </div>
     <div className="contenedor" style={{border: items.length > 0 ? '1px solid rgba(128, 128, 128, 0.253)' : 'none'}}>
         {items.map((item) => (
-        <Item text={item.text} id={item.id} key={item.id} ondelete = {deleteItem} isdark = {isdork}/>
+        <Item text={item.text} id={item.id} key={item.id} ondelete = {deleteItem} isdark = {isdork} state = {item.state} color={item.color} onUpdate={updateItem}/>
         ))}
     </div>
     </div>
